@@ -1,3 +1,9 @@
+2003-11-10  Roozbeh Pournader  <roozbeh@sharif.edu>
+
+	* src/fcxml.c:
+	Fixed a bug "FcStrtod" in handling some cases with two-byte decimal
+	separators.
+
 2003-06-09  Keith Packard <keithp@keithp.com>
 
 	* Tag version 2.2.1
