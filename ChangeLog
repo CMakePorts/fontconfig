@@ -1,3 +1,11 @@
+2004-03-30  Keith Packard  <keithp@keithp.com>
+
+	Bug #387 - usr352@wanadoo.es (Pedro Gimeno)
+
+	* src/fcxml.c: (FcStrtod):
+	Missing braces around a block of code.  Correct fix was
+	already in HEAD.
+
 2004-03-28  Tor Lillqvist  <tml@iki.fi>
 
 	Merge from HEAD:
