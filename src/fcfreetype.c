@@ -769,10 +769,16 @@ FcFreeTypeQuery (const FcChar8	*file,
 		}
 	}
      
+#if 0
+	/* 
+	 * Don't bother with italic_angle; FreeType already extracts that
+	 * information for us and sticks it into style_flags
+	 */
         if (psfontinfo.italic_angle < 0) 
             slant = FC_SLANT_ITALIC; 
         else if (psfontinfo.italic_angle >= 0) 
             slant = FC_SLANT_ROMAN; 
+#endif
 
         if(!foundry)
             foundry = FcNoticeFoundry(psfontinfo.notice);
