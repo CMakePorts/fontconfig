@@ -1,3 +1,27 @@
+2004-03-28  Tor Lillqvist  <tml@iki.fi>
+
+	Merge from HEAD:
+	
+	* src/fccfg.c (FcConfigCreate): If FcConfigHome() is NULL, use the
+	temp folder. (I guess this branch doesn't crash on a NULL
+	config->cache, but still a good idea to have a cache file, for
+	performance, isn't it?)
+
+	* src/Makefile.am (install-libtool-import-lib): Fix cut&paste error.
+
+	* test/run-test.sh: Remove CRs from the out file before comparing
+	(needed on Windows).
+
+	* fontconfig-zip.in (DEVZIP): Add share/doc directory. Add Fc*.3
+	man pages.
+
+	* src/fontconfig.def.in: Move the LIBRARY and VERSION lines to the
+	end, not to confuse libtool, which expects the EXPORTS line to be
+	the first. Add FcConfigEnableHome.
+
+	* src/fccfg.c: Check also for DLL_EXPORT as indication of being
+	built as a DLL on Win32.
+
 2004-03-10  Keith Packard  <keithp@keithp.com>
 
 	* README:

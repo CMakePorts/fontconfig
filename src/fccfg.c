@@ -24,7 +24,7 @@
 
 #include "fcint.h"
 
-#if defined (_WIN32) && defined (PIC)
+#if defined (_WIN32) && (defined (PIC) || defined (DLL_EXPORT))
 #define STRICT
 #include <windows.h>
 #undef STRICT
@@ -59,6 +59,31 @@ FcConfigCreate (void)
     if (FcConfigHome())
 	if (!FcConfigSetCache (config, (FcChar8 *) ("~/" FC_USER_CACHE_FILE)))
 	    goto bail4;
+
+#ifdef _WIN32
+    if (config->cache == 0)
+    {
+	/* If no home, use the temp folder. */
+	FcChar8	    dummy[1];
+	int	    templen = GetTempPath (1, dummy);
+	FcChar8     *temp = malloc (templen + 1);
+
+	if (temp)
+	{
+	    FcChar8 *cache_dir;
+
+	    GetTempPath (templen + 1, temp);
+	    cache_dir = FcStrPlus (temp, FC_USER_CACHE_FILE);
+	    free (temp);
+	    if (!FcConfigSetCache (config, cache_dir))
+	    {
+		FcStrFree (cache_dir);
+		goto bail4;
+	    }
+	    FcStrFree (cache_dir);
+	}
+    }
+#endif
 
     config->blanks = 0;
 
@@ -1355,7 +1380,7 @@ FcConfigSubstitute (FcConfig	*config,
     return FcConfigSubstituteWithPat (config, p, 0, kind);
 }
 
-#if defined (_WIN32) && defined (PIC)
+#if defined (_WIN32) && (defined (PIC) || defined (DLL_EXPORT))
 
 static FcChar8 fontconfig_path[1000] = "";
 
