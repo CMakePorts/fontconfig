@@ -256,6 +256,26 @@ FcVendorFoundry(const char *vendor)
     return 0;
 }
 
+static double
+FcGetPixelSize (FT_Face face, int i)
+{
+#if HAVE_FT_GET_BDF_PROPERTY
+    if (face->num_fixed_sizes == 1)
+    {
+	BDF_PropertyRec	prop;
+	int		rc;
+
+	rc = MY_Get_BDF_Property (face, "PIXEL_SIZE", &prop);
+	if (rc == 0 && prop.type == BDF_PROPERTY_TYPE_INTEGER)
+	    return (double) prop.u.integer;
+    }
+#endif
+#if HAVE_FT_BITMAP_SIZE_Y_PPEM
+    return (double) face->available_sizes[i].y_ppem / 64.0;
+#else
+    return (double) face->available_sizes[i].height;
+#endif
+}
 
 FcPattern *
 FcFreeTypeQuery (const FcChar8	*file,
@@ -908,7 +928,7 @@ FcFreeTypeQuery (const FcChar8	*file,
     {
 	for (i = 0; i < face->num_fixed_sizes; i++)
 	    if (!FcPatternAddDouble (pat, FC_PIXEL_SIZE,
-				     (double) face->available_sizes[i].height))
+				     FcGetPixelSize (face, i)))
 		goto bail1;
 	if (!FcPatternAddBool (pat, FC_ANTIALIAS, FcFalse))
 	    goto bail1;

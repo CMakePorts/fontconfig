@@ -1,5 +1,12 @@
 2004-03-30  Keith Packard  <keithp@keithp.com>
 
+	* src/fcfreetype.c: (FcGetPixelSize), (FcFreeTypeQuery):
+	Use code from HEAD in computing pixel sizes of fonts
+	so that vageries in FreeType over y_ppem/height issues
+	don't affect what pixel size values are used.
+
+2004-03-30  Keith Packard  <keithp@keithp.com>
+
 	Bug #387 - usr352@wanadoo.es (Pedro Gimeno)
 
 	* src/fcxml.c: (FcStrtod):
