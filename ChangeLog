@@ -1,5 +1,11 @@
 2004-03-30  Keith Packard  <keithp@keithp.com>
 
+	* configure.in:
+	Oops.  Apply changes to configure.in needed to detect
+	functions and structures used in FcGetPixelSize.
+
+2004-03-30  Keith Packard  <keithp@keithp.com>
+
 	* doc/Makefile.am:
 	Fix --disable-doc mode code to locate built documents in ${srcdir}
 	instead of ${builddir}
