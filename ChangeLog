@@ -1,3 +1,18 @@
+2004-03-10  Keith Packard  <keithp@keithp.com>
+
+	* README:
+	* fontconfig/fontconfig.h:
+	* configure.in:
+	Update to version 2.2.2
+
+	* doc/Makefile.am:
+	* fc-lang/Makefile.am:
+	Make subdir build work
+	
+	* fontconfig/fcfreetype.h:
+	* src/fcfreetype.c:
+	Use new freetype include scheme
+
 2003-11-10  Roozbeh Pournader  <roozbeh@sharif.edu>
 
 	* src/fcxml.c:

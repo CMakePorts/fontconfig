@@ -1,3 +1,4 @@
+DOC_SRC = $(srcdir)
 DOC_MODULE = fontconfig
 DOC2HTML = docbook2html
 DOC2TXT = docbook2txt
@@ -7,7 +8,7 @@ TXT = fontconfig-user.txt fontconfig-devel.txt
 HTML_FILES = fontconfig-user.html
 HTML_DIRS = fontconfig-devel
 SGML = fontconfig-user.sgml fontconfig-devel.sgml
-FNCS_TMPL = func.sgml
+FNCS_TMPL = ${DOC_SRC}/func.sgml
 
 DOC_FUNCS_FNCS=\
 	fcatomic.fncs \
@@ -97,26 +98,29 @@ if ENABLE_DOCS
 
 .fncs.sgml:
 	$(RM) $@
-	./edit-sgml $(FNCS_TMPL) < $*.fncs > $*.sgml
+	./edit-sgml $(FNCS_TMPL) < '$<' > $*.sgml
 
 .sgml.txt:
 	$(RM) $@
-	$(DOC2TXT) $*.sgml
+	$(DOC2TXT) $<
 
 $(man_MANS): func.refs
 
-func.refs: fontconfig-devel.sgml $(DOC_FUNCS_SGML) version.sgml
+func.refs: local-fontconfig-devel.sgml $(DOC_FUNCS_SGML) version.sgml
 	$(RM) func.refs
-	$(DOC2MAN) fontconfig-devel.sgml
+	$(DOC2MAN) local-fontconfig-devel.sgml
 	mv manpage.refs func.refs
 	$(RM) manpage.links
 
 $(DOC_FUNCS_SGML): edit-sgml $(FNCS_TMPL)
 
-fonts-conf.5: fontconfig-user.sgml version.sgml
+fonts-conf.5: local-fontconfig-user.sgml version.sgml
 	$(RM) file.refs
-	$(DOC2MAN) fontconfig-user.sgml
+	$(DOC2MAN) local-fontconfig-user.sgml
 	$(RM) manpage.refs manpage.links
+
+local-fontconfig-user.sgml: fontconfig-user.sgml
+	$(LN_S) $< $@
 
 all-local: $(LOCAL_DOCS)
 
@@ -124,16 +128,32 @@ clean-local:
 	$(RM) $(man_MANS) $(DOC_FILES) $(DOC_FUNCS_SGML) func.refs
 	$(RM) -r $(DOC_DIRS)
 
-fontconfig-devel: fontconfig-devel.sgml $(DOCS_FUNCS_SGML) version.sgml
+fontconfig-devel: local-fontconfig-devel.sgml $(DOCS_FUNCS_SGML) version.sgml
 	$(RM) -r fontconfig-devel
-	$(DOC2HTML) -o fontconfig-devel fontconfig-devel.sgml
+	$(DOC2HTML) -o fontconfig-devel local-fontconfig-devel.sgml
 
-fontconfig-devel.txt: fontconfig-devel.sgml version.sgml
+local-fontconfig-devel.sgml: fontconfig-devel.sgml
+	$(LN_S) $< $@
 
-fontconfig-user.html: fontconfig-user.sgml version.sgml
-	$(DOC2HTML) -u fontconfig-user.sgml
+fontconfig-devel.txt: local-fontconfig-devel.sgml version.sgml
+	$(RM) $@
+	$(DOC2TXT) local-fontconfig-devel.sgml
+	mv local-fontconfig-devel.txt $@
 
-fontconfig-user.txt:  fontconfig-user.sgml version.sgml
+fontconfig-user.html: local-fontconfig-user.sgml version.sgml
+	$(RM) $@ local-$@ $@.tmp
+	$(DOC2HTML) -u local-fontconfig-user.sgml > $@.tmp
+	-test -f local-$@ && mv local-$@ $@
+	-test -f $@ || mv $@.tmp $@
+	-test -f $@.tmp && $(RM) $@.tmp
+
+fontconfig-user.txt:  local-fontconfig-user.sgml version.sgml
+	$(RM) $@
+	$(DOC2TXT) local-fontconfig-user.sgml
+	mv local-fontconfig-user.txt $@
+
+CLEANFILES=confdir.sgml local-fontconfig-user.sgml local-fontconfig-devel.sgml
+
 else
 all-local:
 clean-local:

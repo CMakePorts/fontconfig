@@ -33,7 +33,7 @@ dnl This is the package version number, not the shared library
 dnl version.  This same version number must appear in fontconfig/fontconfig.h
 dnl Yes, it is a pain to synchronize version numbers.  Unfortunately, it's
 dnl not possible to extract the version number here from fontconfig.h
-AM_INIT_AUTOMAKE(fontconfig, 2.2.1)
+AM_INIT_AUTOMAKE(fontconfig, 2.2.2)
 
 dnl libtool versioning
 
@@ -320,7 +320,7 @@ AC_SUBST(CONFDIR)
 # Find out what language orthographies are included
 #
 
-ORTH_FILES=`cd fc-lang && echo *.orth`
+ORTH_FILES=`cd ${srcdir}/fc-lang && echo *.orth`
 AC_SUBST(ORTH_FILES)
 
 #
