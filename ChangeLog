@@ -1,3 +1,16 @@
+2003-06-09  Keith Packard <keithp@keithp.com>
+
+	* Tag version 2.2.1
+	* add patch from HEAD to fix optimized path in FcLangSetIndex
+
+2003-04-30  Keith Packard <keithp@keithp.com>
+
+	* Typo in bitstream foundry name
+
+2003-04-24  Keith Packard <keithp@keithp.com>
+
+	* Eliminate italic_angle check for PS fonts
+
 2003-04-23  James Henstridge  <james@daa.com.au>
 
 	* doc/fontconfig-devel.sgml: close the <para> element.
@@ -5,6 +18,11 @@
 	* doc/fcpattern.fncs: close the <para> element.
 
 	* doc/func.sgml: close the <refsynopsisdiv> element.
+
+2003-04-22  Keith Packard <keithp@keithp.com
+
+	* Update autogen.sh to work with newer automake versions
+	* Handle pattern elements moving during multiple edits
 
 2003-04-17  Colin Walters <walters@debian.org>
 
