@@ -154,7 +154,12 @@ fontconfig-user.txt:  local-fontconfig-user.sgml version.sgml
 
 CLEANFILES=confdir.sgml local-fontconfig-user.sgml local-fontconfig-devel.sgml
 
+BUILT_DOC_DIR=.
+
 else
+
+BUILT_DOC_DIR=${srcdir}
+
 all-local:
 clean-local:
 endif
@@ -163,12 +168,13 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(DOCDIR)
 	for i in $(DOC_FILES); do \
 	  echo '-- Installing '$$i ; \
-	  $(INSTALL_DATA) $$i $(DESTDIR)$(DOCDIR)/$$i; \
+	  $(INSTALL_DATA) $(BUILT_DOC_DIR)/$$i $(DESTDIR)$(DOCDIR)/$$i; \
 	done
 	for i in $(DOC_DIRS); do \
 	  $(mkinstalldirs) $(DESTDIR)$(DOCDIR)/$$i ; \
-	  for f in $$i/*; do \
-	    echo '-- Installing '$$f ; \
-	    $(INSTALL_DATA) $$f $(DESTDIR)$(DOCDIR)/$$f; \
+	  for f in $(BUILT_DOC_DIR)/$$i/*; do \
+	    g=`echo $$f | sed 's;$(BUILT_DOC_DIR)/;;'`; \
+	    echo '-- Installing '$$g ; \
+	    $(INSTALL_DATA) $$f $(DESTDIR)$(DOCDIR)/$$g; \
 	  done \
 	done

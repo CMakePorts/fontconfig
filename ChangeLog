@@ -1,5 +1,11 @@
 2004-03-30  Keith Packard  <keithp@keithp.com>
 
+	* doc/Makefile.am:
+	Fix --disable-doc mode code to locate built documents in ${srcdir}
+	instead of ${builddir}
+
+2004-03-30  Keith Packard  <keithp@keithp.com>
+
 	* src/fcfreetype.c: (FcGetPixelSize), (FcFreeTypeQuery):
 	Use code from HEAD in computing pixel sizes of fonts
 	so that vageries in FreeType over y_ppem/height issues
