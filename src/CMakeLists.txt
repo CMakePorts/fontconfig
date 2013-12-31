@@ -43,7 +43,7 @@ endif(MSVC)
 add_library( fontconfig SHARED ${fontconfig_SRCS} )
 set_target_properties(fontconfig PROPERTIES OUTPUT_NAME fontconfig )
 
-target_link_libraries( fontconfig ${FREETYPE_LIBRARIES} )
+target_link_libraries( fontconfig ${FREETYPE_LIBRARIES})
 target_link_libraries( fontconfig ${EXPAT_LIBRARY} )
 
 install( TARGETS fontconfig RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib )

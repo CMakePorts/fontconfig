@@ -1,19 +1,19 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define if building universal (internal helper macro) */
-#cmakedefine AC_APPLE_UNIVERSAL_BUILD
+#cmakedefine AC_APPLE_UNIVERSAL_BUILD @AC_APPLE_UNIVERSAL_BUILD@
 
 /* The normal alignment of `double', in bytes. */
 #cmakedefine ALIGNOF_DOUBLE @ALIGNOF_DOUBLE@
 
 /* Use libxml2 instead of Expat */
-#cmakedefine ENABLE_LIBXML2 0
+#cmakedefine ENABLE_LIBXML2 @ENABLE_LIBXML2@
 
 /* Additional font directories */
 #cmakedefine FC_ADD_FONTS "yes"
 
 /* Architecture prefix to use for cache file names */
-#cmakedefine FC_ARCHITECTURE
+#cmakedefine FC_ARCHITECTURE @FC_ARCHITECTURE@
 
 /* System font directory */
 #define FC_DEFAULT_FONTS "WINDOWSFONTDIR"
@@ -28,7 +28,7 @@
    (struct s)' as it overestimates the size. Use 'offsetof (struct s, d)'
    instead. Don't use 'offsetof (struct s, d[0])', as this doesn't work with
    MSVC and with C++ compilers. */
-#cmakedefine FLEXIBLE_ARRAY_MEMBER
+#define FLEXIBLE_ARRAY_MEMBER
 
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
    */
@@ -86,7 +86,7 @@
 #cmakedefine HAVE_GETPROGNAME @HAVE_GETPROGNAME@
 
 /* Have Intel __sync_* atomic primitives */
-#cmakedefine HAVE_INTEL_ATOMIC_PRIMITIVES 1
+#cmakedefine HAVE_INTEL_ATOMIC_PRIMITIVES @HAVE_INTEL_ATOMIC_PRIMITIVES@
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #cmakedefine HAVE_INTTYPES_H @HAVE_INTTYPES_H@
@@ -122,10 +122,10 @@
 #cmakedefine HAVE_POSIX_FADVISE @HAVE_POSIX_FADVISE@
 
 /* Have POSIX threads */
-#cmakedefine HAVE_PTHREAD 1
+#cmakedefine HAVE_PTHREAD @HAVE_PTHREAD@
 
 /* Have PTHREAD_PRIO_INHERIT. */
-#cmakedefine HAVE_PTHREAD_PRIO_INHERIT 1
+#cmakedefine HAVE_PTHREAD_PRIO_INHERIT @HAVE_PTHREAD_PRIO_INHERIT@
 
 /* Define to 1 if you have the `rand' function. */
 #cmakedefine HAVE_RAND @HAVE_RAND@
@@ -162,16 +162,16 @@
 
 /* Define to 1 if you have the 'scandir' function with int (* compar)(const
    void *, const void *) */
-#cmakedefine HAVE_SCANDIR_VOID_P
+#cmakedefine HAVE_SCANDIR_VOID_P @HAVE_SCANDIR_VOID_P@
 
 /* Define to 1 if you have the <sched.h> header file. */
-#cmakedefine HAVE_SCHED_H
+#cmakedefine HAVE_SCHED_H @HAVE_SCHED_H@
 
 /* Have sched_yield */
-#cmakedefine HAVE_SCHED_YIELD
+#cmakedefine HAVE_SCHED_YIELD @HAVE_SCHED_YIELD@
 
 /* Have Solaris __machine_*_barrier and atomic_* operations */
-#cmakedefine HAVE_SOLARIS_ATOMIC_OPS 0
+#cmakedefine HAVE_SOLARIS_ATOMIC_OPS @HAVE_SOLARIS_ATOMIC_OPS@
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #cmakedefine HAVE_STDINT_H @HAVE_STDINT_H@
@@ -233,7 +233,7 @@
 #cmakedefine HAVE_VPRINTF @HAVE_VPRINTF@
 
 /* Can use #warning in C files */
-#cmakedefine HAVE_WARNING_CPP_DIRECTIVE
+#cmakedefine HAVE_WARNING_CPP_DIRECTIVE @HAVE_WARNING_CPP_DIRECTIVE@
 
 /* Use xmlparse.h instead of expat.h */
 #cmakedefine HAVE_XMLPARSE_H @HAVE_XMLPARSE_H@
@@ -293,33 +293,33 @@
 #cmakedefine SIZEOF_VOID_P @SIZEOF_VOID_P@
 
 /* Define to 1 if you have the ANSI C header files. */
-#cmakedefine STDC_HEADERS 1
+#cmakedefine STDC_HEADERS @STDC_HEADERS@
 
 /* Use iconv. */
-#cmakedefine USE_ICONV 0
+#cmakedefine USE_ICONV @USE_ICONV@
 
 /* Use regex */
-#cmakedefine USE_REGEX 0
+#cmakedefine USE_REGEX @USE_REGEX@
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE
-# undef _ALL_SOURCE
+# define _ALL_SOURCE
 #endif
 /* Enable GNU extensions on systems that have them.  */
 #ifndef _GNU_SOURCE
-# undef _GNU_SOURCE
+# define _GNU_SOURCE 1
 #endif
 /* Enable threading extensions on Solaris.  */
 #ifndef _POSIX_PTHREAD_SEMANTICS
-# undef _POSIX_PTHREAD_SEMANTICS
+# define _POSIX_PTHREAD_SEMANTICS @_POSIX_PTHREAD_SEMANTICS@
 #endif
 /* Enable extensions on HP NonStop.  */
 #ifndef _TANDEM_SOURCE
-# undef _TANDEM_SOURCE
+# define _TANDEM_SOURCE
 #endif
 /* Enable general extensions on Solaris.  */
 #ifndef __EXTENSIONS__
-# undef __EXTENSIONS__
+# define __EXTENSIONS__ @__EXTENSIONS__@
 #endif
 
 /* Version number of package */
@@ -356,7 +356,7 @@
 #cmakedefine _POSIX_1_SOURCE
 
 /* Define to 1 if you need to in order for `stat' and other things to work. */
-#cmakedefine _POSIX_SOURCE
+#cmakedefine _POSIX_SOURCE @_POSIX_SOURCE@
 
 /* Define to empty if `const' does not conform to ANSI C. */
 #cmakedefine const
