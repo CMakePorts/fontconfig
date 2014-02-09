@@ -37,6 +37,10 @@ AC_INIT([fontconfig], [2.11.0], [https://bugs.freedesktop.org/enter_bug.cgi?prod
 AM_INIT_AUTOMAKE([1.11 parallel-tests dist-bzip2])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
+dnl Initialize libtool
+LT_PREREQ([2.2])
+LT_INIT([disable-static win32-dll])
+
 dnl libtool versioning
 
 dnl bump revision when fixing bugs
@@ -67,8 +71,6 @@ AC_USE_SYSTEM_EXTENSIONS
 AC_SYS_LARGEFILE
 AC_PROG_INSTALL
 AC_PROG_LN_S
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
 AC_PROG_MAKE_SET
 PKG_PROG_PKG_CONFIG
 m4_ifdef([PKG_INSTALLDIR], [PKG_INSTALLDIR], AC_SUBST([pkgconfigdir], ${libdir}/pkgconfig))
@@ -136,7 +138,7 @@ dnl ==========================================================================
 # Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS([fcntl.h regex.h stdlib.h string.h unistd.h sys/vfs.h sys/statfs.h sys/param.h sys/mount.h])
+AC_CHECK_HEADERS([fcntl.h regex.h stdlib.h string.h unistd.h sys/statvfs.h sys/vfs.h sys/statfs.h sys/param.h sys/mount.h])
 AX_CREATE_STDINT_H([src/fcstdint.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
