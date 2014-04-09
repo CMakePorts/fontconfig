@@ -33,33 +33,9 @@ dnl This is the package version number, not the shared library
 dnl version.  This same version number must appear in fontconfig/fontconfig.h
 dnl Yes, it is a pain to synchronize version numbers.  Unfortunately, it's
 dnl not possible to extract the version number here from fontconfig.h
-AC_INIT([fontconfig], [2.11.0], [https://bugs.freedesktop.org/enter_bug.cgi?product=fontconfig])
+AC_INIT([fontconfig], [2.11.1], [https://bugs.freedesktop.org/enter_bug.cgi?product=fontconfig])
 AM_INIT_AUTOMAKE([1.11 parallel-tests dist-bzip2])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-
-dnl Initialize libtool
-LT_PREREQ([2.2])
-LT_INIT([disable-static win32-dll])
-
-dnl libtool versioning
-
-dnl bump revision when fixing bugs
-dnl bump current and age, reset revision to zero when adding APIs
-dnl bump current, leave age, reset revision to zero when changing/removing APIS
-LIBT_CURRENT=9
-LIBT_REVISION=0
-AC_SUBST(LIBT_CURRENT)
-AC_SUBST(LIBT_REVISION)
-LIBT_AGE=8
-
-LIBT_VERSION_INFO="$LIBT_CURRENT:$LIBT_REVISION:$LIBT_AGE"
-AC_SUBST(LIBT_VERSION_INFO)
-
-LIBT_CURRENT_MINUS_AGE=`expr $LIBT_CURRENT - $LIBT_AGE`
-AC_SUBST(LIBT_CURRENT_MINUS_AGE)
-
-PKGCONFIG_REQUIRES=
-PKGCONFIG_REQUIRES_PRIVATELY=
 
 dnl ==========================================================================
 
@@ -86,6 +62,30 @@ if test "x$_predefined_rm" = "x"; then
 else
 	AC_MSG_RESULT($_predefined_rm)
 fi
+
+dnl Initialize libtool
+LT_PREREQ([2.2])
+LT_INIT([disable-static win32-dll])
+
+dnl libtool versioning
+
+dnl bump revision when fixing bugs
+dnl bump current and age, reset revision to zero when adding APIs
+dnl bump current, leave age, reset revision to zero when changing/removing APIS
+LIBT_CURRENT=9
+LIBT_REVISION=0
+AC_SUBST(LIBT_CURRENT)
+AC_SUBST(LIBT_REVISION)
+LIBT_AGE=8
+
+LIBT_VERSION_INFO="$LIBT_CURRENT:$LIBT_REVISION:$LIBT_AGE"
+AC_SUBST(LIBT_VERSION_INFO)
+
+LIBT_CURRENT_MINUS_AGE=`expr $LIBT_CURRENT - $LIBT_AGE`
+AC_SUBST(LIBT_CURRENT_MINUS_AGE)
+
+PKGCONFIG_REQUIRES=
+PKGCONFIG_REQUIRES_PRIVATELY=
 
 dnl ==========================================================================
 
@@ -155,7 +155,7 @@ AC_CHECK_FUNCS([link mkstemp mkostemp _mktemp_s mkdtemp getopt getopt_long getpr
 dnl AC_CHECK_FUNCS doesn't check for header files.
 dnl posix_fadvise() may be not available in older libc.
 AC_CHECK_SYMBOL([posix_fadvise], [fcntl.h], [fc_func_posix_fadvise=1], [fc_func_posix_fadvise=0])
-AC_DEFINE_UNQUOTED([HAVE_POSIX_FADVISE], [$fc_func_posix_fadvise], [Define to 1 if you have the 'posix_fadivse' function.])
+AC_DEFINE_UNQUOTED([HAVE_POSIX_FADVISE], [$fc_func_posix_fadvise], [Define to 1 if you have the 'posix_fadvise' function.])
 if test "$os_win32" = "no"; then
 	AC_MSG_CHECKING([for scandir])
 	fc_saved_CFLAGS="$CFLAGS"
@@ -321,6 +321,10 @@ AC_CHECK_MEMBER(FT_Bitmap_Size.y_ppem,
 #include FT_FREETYPE_H])
 AC_DEFINE_UNQUOTED(HAVE_FT_BITMAP_SIZE_Y_PPEM,$HAVE_FT_BITMAP_SIZE_Y_PPEM,
 		   [FT_Bitmap_Size structure includes y_ppem field])
+AC_CHECK_MEMBERS([TT_OS2.usLowerOpticalPointSize, TT_OS2.usUpperOpticalPointSize], [], [], [[
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_TRUETYPE_TABLES_H]])
 CFLAGS="$fontconfig_save_cflags"
 LIBS="$fontconfig_save_libs"
 
